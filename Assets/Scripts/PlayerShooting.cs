@@ -49,9 +49,10 @@ public class PlayerShooting : MonoBehaviour {
       if (h != null)
       {
         var tm = t.GetComponent<TeamMember>();
-        var myTm = t.GetComponent<TeamMember>();
+        var myTm = GetComponent<TeamMember>();
         if (tm == null || myTm == null || myTm.teamID == 0 || tm.teamID == 0 || tm.teamID != myTm.teamID)
           h.GetComponent<PhotonView>().RPC("TakeDamage", PhotonTargets.AllBuffered, weaponData.damage);
+        else Debug.Log("His team: " + tm.teamID + " and my team: " + myTm.teamID);
       }
       DoGunFX(hitInfo.point);
     }

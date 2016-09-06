@@ -162,24 +162,6 @@ SpawnSpot spot = spawnSpots[0];
     go.GetComponent<PlayerShooting>().enabled = true;
     go.GetComponent<CharacterController>().enabled = true;
     go.GetComponent<LegacyMouseLook>().enabled = true;
-    go.GetComponent<TeamMember>().teamID = teamID;
-    // set the color
-    Color clr;
-    switch (teamID) 
-    {
-      case 1:
-        clr = new Color(1f, 0.5f, 0.5f); break;
-      case 2:
-        clr = new Color(0.5f, 1f, 0.5f); break;
-      case 0:
-      default:
-        clr = Color.white; break;
-      }
-    var meshes = go.transform.GetComponentsInChildren<SkinnedMeshRenderer>(false);
-    foreach (var mesh in meshes) 
-    {
-      if (mesh.material.HasProperty("_Color"))
-        mesh.material.color = clr;
-    }
+    go.GetComponent<PhotonView>().RPC("SetTeamID", PhotonTargets.AllBuffered, teamID);
   }
 }

@@ -16,7 +16,7 @@ Platform assembly: C:\Temp\MultiFPS\MultiFPS_Data\Managed\UnityEngine.Networking
 Loading C:\Temp\MultiFPS\MultiFPS_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Temp\MultiFPS\MultiFPS_Data\Managed\Photon3Unity3D.dll (this message is harmless)
 Loading C:\Temp\MultiFPS\MultiFPS_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
-- Completed reload, in  0.151 seconds
+- Completed reload, in  0.253 seconds
 Platform assembly: C:\Temp\MultiFPS\MultiFPS_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Temp\MultiFPS\MultiFPS_Data\Managed\System.dll (this message is harmless)
 OnLevelWasLoaded was found on PhotonHandler
@@ -25,14 +25,14 @@ Add a delegate to SceneManager.sceneLoaded instead to get notifications after sc
  
 (Filename:  Line: 375)
 
-desktop: 1920x1080 60Hz; virtual: 3840x1080 at 0,0
+desktop: 3000x2000 60Hz; virtual: 6465x2160 at 0,0
 <RI> Initializing input.
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.783680 ms
+UnloadTime: 1.048796 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: a8c -> priority: 1 
+  Thread -> id: 2134 -> priority: 1 
 SwitchToProtocol: Udp PhotonNetwork.connected: False
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
@@ -41,7 +41,11 @@ Operation failed: OperationResponse 225: ReturnCode: 32760 (No match found). Par
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
 
-OnJoinedRoom
+Setting team ID: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Setting team ID: 2
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
 
@@ -65,51 +69,7 @@ MINE
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
 
-PlayerController(Clone) took damage: 25; hp: 100
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-PlayerController(Clone) took damage: 25; hp: 75
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-PlayerController(Clone) took damage: 25; hp: 50
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-PlayerController(Clone) took damage: 25; hp: 25
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-MINE
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-We hit: Building
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-We hit: Building
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-We hit: Building
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Suicide
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-MINE
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Suicide
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-MINE
+Setting team ID: 1
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
 

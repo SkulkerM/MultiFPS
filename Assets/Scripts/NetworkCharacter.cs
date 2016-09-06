@@ -1,15 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NetworkCharacter : Photon.MonoBehaviour {
+public class NetworkCharacter : Photon.MonoBehaviour 
+{
+  public float speed;
+  public float jumpSpeed;
+
+  [System.NonSerialized]
+  public Vector3 direction = Vector3.zero;
+  [System.NonSerialized]
+  public bool isJumping = false;
+  float verticalVelocity = 0f;
+
   Vector3 realPosition = Vector3.zero;
   Quaternion realRotation = Quaternion.identity;
   float realAimAngle = 0f;
   Animator anim;
   bool firstUpdate = false;
+  CharacterController cc;
 
-	// Use this for initialization
-	void Start () 
+  // Use this for initialization
+  void Start () 
   {
     CacheComponents();
 	}
@@ -20,14 +31,19 @@ public class NetworkCharacter : Photon.MonoBehaviour {
     {
       anim = GetComponent<Animator>();
     }
-  }	
+    if (cc == null)
+    {
+      cc = GetComponent<CharacterController>();
+    }
+  }
 
-	// Update is called once per frame
-	void Update () 
+  // FixedUpdate is called once per physics loop
+  // Do all MOVEMENT and other physics stuff here
+  void FixedUpdate () 
   {
     if (photonView.isMine)
     {
-      // Do nothing - the character motor/input/etc. is moving us
+      DoLocalMovement();
     }
     else
     {
@@ -36,6 +52,35 @@ public class NetworkCharacter : Photon.MonoBehaviour {
       anim.SetFloat("AimAngle", Mathf.Lerp(anim.GetFloat("AimAngle"), realAimAngle, 0.5f));
     }
 	}
+
+  void DoLocalMovement()
+  {
+    Vector3 dist = direction * speed * Time.deltaTime;
+
+    if (isJumping) 
+    {
+      isJumping = false;
+      if (cc.isGrounded) verticalVelocity = jumpSpeed;
+    }
+
+    if (cc.isGrounded && verticalVelocity < 0f)
+    {
+      anim.SetBool("Jumping", false);
+      verticalVelocity = Physics.gravity.y * Time.deltaTime;
+    }
+    else
+    {
+      if (Mathf.Abs(verticalVelocity) > jumpSpeed * 0.75f)
+        anim.SetBool("Jumping", true);
+
+      verticalVelocity += Physics.gravity.y * Time.deltaTime;
+    }
+
+    dist.y = verticalVelocity * Time.deltaTime;
+
+    anim.SetFloat("Speed", direction.magnitude);
+    cc.Move(dist);
+  }
 
   public void OnPhotonSerializeView(PhotonStream stm, PhotonMessageInfo info)
   {
