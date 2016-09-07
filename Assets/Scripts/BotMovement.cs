@@ -12,6 +12,7 @@ public class BotMovement : MonoBehaviour
   static Waypoint[] waypoints;
   Waypoint destination;
   float waypointTargetDist = 1f;
+  float aggroRange = 10000000f;
 
 	// Use this for initialization
 	void Start () 
@@ -62,12 +63,58 @@ public class BotMovement : MonoBehaviour
         netChar.direction = destination.transform.position - transform.position;
         netChar.direction.y = 0;
         netChar.direction.Normalize();
-        transform.rotation = Quaternion.LookRotation(netChar.direction);
       }
       else 
       {
         netChar.direction = Vector3.zero;
       }
+
+      // by default, look the direction we're moving
+      Vector3 lookDirection;
+
+      // if we have an enemy in range...
+      TeamMember closest = null;
+      float dist = 0f;
+      TeamMember myTeam = GetComponent<TeamMember>();
+      RaycastHit hitInfo;
+      foreach (TeamMember tm in GameObject.FindObjectsOfType<TeamMember>())
+      {
+        if (tm != myTeam && (tm.teamID == 0 || tm.teamID != myTeam.teamID))
+        {
+          float d = Vector3.Distance(tm.transform.position, transform.position);
+          if (d < aggroRange)
+          {
+            // we need to sheet a ray out of the bot's eyes to the player... so, we need to elevate the position up to
+            // eye level and shoot from there
+            Vector3 pos = transform.position; pos.y += 1f;
+            // the direction is independent of height.. we are shooting from our origin to his so that
+            // once we push it up on Y, we wind up making mid-body to mid-body
+            Vector3 dir = tm.transform.position - transform.position;
+            Ray ray = new Ray(pos, dir);
+            if (Physics.Raycast(ray, out hitInfo) && 
+                hitInfo.transform.GetComponent<TeamMember>() == tm) 
+            {
+              if (closest == null || d < dist)
+              {
+                closest = tm; dist = d;
+              }
+            }
+          }
+        }
+      }
+
+      if (closest != null)
+      {
+        lookDirection = closest.transform.position - transform.position;
+      }
+      else 
+      {
+        lookDirection = netChar.direction; 
+      }
+
+      Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
+      lookRotation.eulerAngles = new Vector3(0, lookRotation.eulerAngles.y, 0);
+      transform.rotation = lookRotation; 
     }
   }
 }
