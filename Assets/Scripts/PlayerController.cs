@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour 
+public class PlayerController : MonoBehaviour 
 {
   //
   //  This is only enabled for 'my player'
@@ -27,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
     // handle jumping
     netChar.isJumping = (Input.GetButton("Jump"));
 
+    if (Input.GetButton("Fire1"))
+    {
+      netChar.FireWeapon(Camera.main.transform.position, Camera.main.transform.forward);
+    }
+
     AdjustAimAngle();
   }
 
@@ -37,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
     if (cam.transform.rotation.eulerAngles.x <= 90f)
       aim = -cam.transform.rotation.eulerAngles.x;
     else aim = 360f - cam.transform.rotation.eulerAngles.x;
-    //Debug.Log("Aim: " + aim);
-    anim.SetFloat("AimAngle", aim);
+    netChar.aimAngle = aim;
   }
 }

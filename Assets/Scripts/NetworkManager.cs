@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class NetworkManager : MonoBehaviour {
 
+  // Test code
+  public Waypoint botSpawnPoint;
+  // End of test
   public GameObject standbyCamera;
   private SpawnSpot[] spawnSpots;
   public bool offlineMode = false;
@@ -158,10 +161,12 @@ SpawnSpot spot = spawnSpots[0];
     GameObject go = PhotonNetwork.Instantiate("PlayerController", spot.transform.position, spot.transform.rotation, 0);
     standbyCamera.SetActive(false);
     go.transform.FindChild("FirstPersonCharacter").gameObject.SetActive(true);
-    go.GetComponent<PlayerMovement>().enabled = true;
-    go.GetComponent<PlayerShooting>().enabled = true;
+    go.GetComponent<PlayerController>().enabled = true;
     go.GetComponent<CharacterController>().enabled = true;
     go.GetComponent<LegacyMouseLook>().enabled = true;
     go.GetComponent<PhotonView>().RPC("SetTeamID", PhotonTargets.AllBuffered, teamID);
+
+    // Test code - add a bot
+    GameObject bot = PhotonNetwork.Instantiate("BotController", botSpawnPoint.transform.position, Quaternion.identity, 0);
   }
 }

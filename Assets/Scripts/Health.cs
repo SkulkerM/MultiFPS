@@ -14,7 +14,7 @@ public class Health : MonoBehaviour {
   [PunRPC]
   public void TakeDamage(float amt)
   {
-    Debug.Log(gameObject.name + " took damage: " + amt + "; hp: " + currentHitPoints);
+//    Debug.Log(gameObject.name + " took damage: " + amt + "; hp: " + currentHitPoints);
     currentHitPoints -= amt;
     if (currentHitPoints <= 0) Die();
   }
@@ -35,7 +35,6 @@ public class Health : MonoBehaviour {
   {
     if (GetComponent<PhotonView>().isMine)
     {
-      Debug.Log("MINE");
       // if this is my player, initiate respawn
       if (gameObject.CompareTag("Player"))
       {
@@ -43,18 +42,12 @@ public class Health : MonoBehaviour {
         nm.standbyCamera.SetActive(true);
         nm.respawnTimer = 3;
       }
+      else if (gameObject.CompareTag("Bot"))
+      {
+        Debug.Log("No bot respawn yet!");
+      }
 
       PhotonNetwork.Destroy(gameObject);
     }
-
-    //if (GetComponent<PhotonView>().instantiationId == 0)
-    //{
-    //  Destroy(gameObject);
-    //}
-    //else if (PhotonNetwork.isMasterClient) 
-    //{
-    //  Debug.Log("Telling Photon to destroy object");
-    //  PhotonNetwork.Destroy(gameObject);
-    //}
   }
 }
